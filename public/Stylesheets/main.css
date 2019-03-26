@@ -1,0 +1,16 @@
+.container {
+    margin-top: 50px;
+    left: 150px;
+}
+.thumbnail img {
+    width: 100%;
+}
+
+.thumbnail {
+    padding: 0;
+}
+
+.thumbnail .caption-full {
+    padding: 9px;
+} 
+

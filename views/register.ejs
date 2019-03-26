@@ -1,0 +1,58 @@
+<% include ./partials/header %>
+
+<link href="https://fonts.googleapis.com/css?family=Exo" rel="stylesheet">
+<style>
+  * {
+    font-family: 'Exo', sans-serif;
+  }
+
+  body {
+    background-image: url(https://d3qvqlc701gzhm.cloudfront.net/full/88fbdffecf1d058219bcd240547f44f8ce451afd675e4486df430851fa4aab37.jpg);
+    background-repeat: round;
+    background-attachment: fixed;
+    background-size: 100%;
+  }
+
+  .row {
+    margin-top: 120px;
+  }
+</style>
+
+
+<div class="row">
+  <h1 style="text-align: center; color: white; font-weight: 700; ">Sign Up</h1>
+  <div style="width: 30%; margin: 55px auto;">
+    <form action="/register" method="POST">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <input class="form-control" type="text" name="firstName" placeholder="first Name">
+        </div>
+        <div class="form-group col-md-6">
+          <input class="form-control" type="text" name="lastName" placeholder="last Name">
+        </div>
+      </div>
+      <div class="form-row col-md-12">
+        <div class="form-group">
+          <input class="form-control" type="email" name="email" placeholder="email">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <input class="form-control" type="text" name="username" placeholder="username">
+        </div>
+        <div class="form-group col-md-12">
+          <input class="form-control" type="password" name="password" placeholder="password">
+        </div>
+      </div>
+      <div class="form-group col-md-12">
+        <input class="form-control" type="text" name="adminCode" placeholder="admin code">
+      </div>
+      <div class="form-group col-md-12">
+        <button class="btn btn-lg btn-primary btn-block">Sign Up!</button>
+      </div>
+    </form>
+    <a style="color: white;" href="/places">Go Back!</a>
+  </div>
+</div>
+
+<% include ./partials/footer %>

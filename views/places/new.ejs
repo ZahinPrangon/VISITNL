@@ -1,0 +1,53 @@
+<% include ../partials/header %>
+
+<link href="https://fonts.googleapis.com/css?family=Exo" rel="stylesheet"> 
+<style>
+    * {
+        font-family: 'Exo', sans-serif;
+    }
+    body {
+        background-image: url(https://www.hurtigruten.com/globalassets/photos/voyages/explorer/2019-20/north-america/greenland-newfoundland-labrador----untouched-wilderness-and-national-parks/st-john-s-canada-hgr-116264_karsten-bidstrup_2500x1250px.jpg?width=1900&height=950&transform=DownFill);
+        background-repeat: round;
+        background-attachment: fixed;
+        background-size: 100%;        
+    }
+
+    div.container {
+        padding-top: 100px;
+    }
+
+    h1 {
+        font-weight: 600;
+        color: whitesmoke;
+    }
+    a {
+        font-weight: 600;
+        color: whitesmoke;
+    }
+</style>
+
+
+    <div class="container">
+        <div class="row">
+            <h1 style="text-align: center">Create a new Place</h1>
+            <div style="width: 30%; margin: 25px auto;">
+                <form action="/places" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="place[name]" placeholder="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="image">Image</label>
+                        <input type="file" id="image" name="image" accept="image/*" required>
+                    </div>
+                  <div class="form-group">
+                        <input class="form-control" type="text" name="place[description]" placeholder="description">
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-lg btn-primary btn-block">Submit!</button>
+                    </div>
+                </form>
+                <a href="/places">Go Back!</a>
+            </div>
+        </div>
+    </div>
+<% include ../partials/footer %>
