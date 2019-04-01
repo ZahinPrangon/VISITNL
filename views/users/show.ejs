@@ -1,19 +1,28 @@
 <% include ../partials/header %>
 
-<div class = "row">
-    <div class="col-md-4" style="padding: 15px;">
-        <h1>
+<style>
+    h1, .caption  {
+        font-family: 'Exo', sans-serif; 
+    }
+</style>
+<link href="https://fonts.googleapis.com/css?family=Exo" rel="stylesheet"> 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<div class = "container-fluid" ">
+    
+    <div class="row"style = "border: 1px solid black; margin-left: 14px; margin-right: 14px; text-align: center; margin-top: 15px;">
+    <div class="col-sm" style="padding: 15px;">
+        <h1 style="margin-left: 15px;">
             <%= user.firstName + " " + user.lastName %>
+            <i class="fa fa-user fa-4x"></i>
         </h1>
         <div class="thumbnail">
-            <div>
-                <img src="user.png" alt="user">
-            </div>
             <div class="caption"><a href="mailto:<%= user.email %>"><%= user.email %></a></div>
+            <div class="caption"><a href="/forgot">Click here</a> to change your password</div>
         </div>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </div>
-    <div class = "col-md-6">
+
+
+    <div class = "col-sm" style= "font-family:'Exo', sans-serif;" >
+       
         <h3><%= user.username %>'s visited places: </h3>
         <ul>
                 <% places.forEach(function(place){ %>
@@ -24,6 +33,7 @@
                 <% }); %>
         </ul>
     </div>
+</div>
 </div>
 
 <% include ../partials/footer %>

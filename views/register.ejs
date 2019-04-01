@@ -7,19 +7,19 @@
   }
 
   body {
-    background-image: url(https://d3qvqlc701gzhm.cloudfront.net/full/88fbdffecf1d058219bcd240547f44f8ce451afd675e4486df430851fa4aab37.jpg);
+    background-image: url(https://d3qvqlc701gzhm.cloudfront.net/full/e8c0c53ffc724fc726310e86eb4bce89fc2d280ff67d781691af05ee6fea8ae4.jpg);
     background-repeat: round;
     background-attachment: fixed;
     background-size: 100%;
   }
 
   .row {
-    margin-top: 120px;
+    margin-right: 120px;
   }
 </style>
 
 
-<div class="row">
+<!-- <div class="row">
   <h1 style="text-align: center; color: white; font-weight: 700; ">Sign Up</h1>
   <div style="width: 30%; margin: 55px auto;">
     <form action="/register" method="POST">
@@ -53,6 +53,76 @@
     </form>
     <a style="color: white;" href="/places">Go Back!</a>
   </div>
+</div> -->
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+<div class="container">
+	<div class="row" >
+		<div class="col-md-4 col-md-offset-4" style="width: 50%;">
+            <div class="panel panel-default">
+              <div class="panel-body" > 
+                <div class="text-center">
+                  <h3><i class="fa fa-sign-in-alt fa-4x"></i></h3>
+                  <h2 class="text-center">Sign Up</h2>
+                  <p>Enter your username and password</p>
+                  <div class="panel-body">
+                    <form id="register-form" role="form" autocomplete="off" class="form" action="/register" method="POST" >   
+                    
+                      <div class="form-group">
+                          <div class="input-group">
+                              <span class="input-group-addon"><i class="fas fa-user"></i></span>
+                              <input  class = "form-control" type="text" name="firstName" placeholder = "First Name">
+                          </div>
+                      </div>
+
+                      <div class="form-group">
+                          <div class="input-group">
+                              <span class="input-group-addon"><i class="fas fa-user"></i></span>
+                              <input  class = "form-control" type="text" name="lastName" placeholder = "Last Name">
+                          </div>
+                      </div>
+
+                      <div class="form-group">
+                          <div class="input-group">
+                              <span class="input-group-addon"><i class="fas fa-envelope"></i></span>
+                              <input  class = "form-control" type="email" name="email" placeholder = "Email">
+                          </div>
+                      </div>
+
+                      <div class="form-group">
+                          <div class="input-group">
+                              <span class="input-group-addon"><i class="fas fa-user"></i></span>
+                              <input  class = "form-control" type="text" name="username" placeholder = "username">
+                          </div>
+                      </div>
+
+											<div class="form-group">
+													<div class="input-group">
+															<span class="input-group-addon"><i class="fas fa-key"></i></span>
+                              <input class = "form-control" type="password" name="password" placeholder="password">
+                            </div>
+                        </div>	
+                            
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fas fa-user"></i></span>
+                                <input class="form-control" type="text" name="adminCode" placeholder="admin code">
+                              </div>
+                        </div>
+                        
+                      <div class="form-group">
+                        <input name="login" class="btn btn-lg btn-primary btn-block" value="Signup" type="submit">
+                      </div>
+                    <br>
+                    <a href="/login"><em>Have an account? Login!</em></a>
+                    <br>                
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+	</div>
 </div>
 
 <% include ./partials/footer %>

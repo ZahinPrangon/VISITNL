@@ -5,6 +5,7 @@ var express    = require("express"),
     cookieParser = require("cookie-parser"),
     methodOverride = require("method-override"),
     passport   = require("passport"),
+    flash = require('connect-flash'),
     localStrategy = require("passport-local"),
     User       = require("./models/user"),
     seedDB     = require("./seeds");
@@ -28,6 +29,7 @@ app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
 app.use(cookieParser('secret'));
 app.locals.moment = require('moment');
+app.use(flash());
 // seedDB();
 
 // PASSPORT CONFIGURATION
@@ -47,6 +49,8 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use(function(req,res,next){
     res.locals.currentUser = req.user;
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
     next();
 });
 

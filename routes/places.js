@@ -1,8 +1,12 @@
 var express = require("express");
 var router = express.Router();
 var Place = require("../models/place");
-
+var middleware = require("../middleware");
 var multer = require('multer');
+var { isLoggedIn, checkUserPlace, checkUserComment, isAdmin, isSafe } = middleware; // destructuring assignment
+
+
+
 var storage = multer.diskStorage({
   filename: function(req, file, callback) {
     callback(null, Date.now() + file.originalname);
@@ -26,14 +30,29 @@ cloudinary.config({
 
 //Get all places from db
 router.get("/", function(req, res){
+    var noMatch = null;
+    if(req.query.search){
+        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+         // Get all place from DB
+         Place.find({name: regex}, function(err, allPlaces){
+            if(err){
+                console.log(err);
+            } else {
+               if(allPlaces.length < 1) {
+                   noMatch = "No place match that query, please try again.";
+               }
+               res.render("places/index",{places:allPlaces, noMatch: noMatch});
+            }
+ });     
+} else {
     Place.find({}, function(err, allPlaces){
-        console.log(req.user);
         if(err){
             console.log(err);
         } else {
-            res.render("places/index", {places: allPlaces});
+            res.render("places/index", {places: allPlaces, noMatch: noMatch});
         }
     });
+}
 });
 
 //get data from form and add to places array
@@ -73,6 +92,8 @@ router.get("/:id", function(req,res){
     Place.findById(req.params.id).populate("comments").exec(function(err, foundPlace){
         if(err) {
             console.log(err);
+            req.flash('error', 'Sorry, that place does not exist!');
+            return res.redirect('/places');
         } else {
             console.log(foundPlace);
             res.render("places/show", {place : foundPlace});
@@ -81,7 +102,7 @@ router.get("/:id", function(req,res){
 });
 
 //EDIT PLACE ROUTE
-router.get("/:id/edit",function(req,res){
+router.get("/:id/edit", isLoggedIn, checkUserPlace, function(req,res){
     Place.findById(req.params.id, function(err,foundPlace){
       if (err) {
           res.redirect("/places");
@@ -151,6 +172,14 @@ router.delete("/:id", function(req,res){
 //         });
 //     });
 // });
+
+
+
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
+
+
 
 //middleware to check if user is logged in
 function isLoggedIn(req,res,next) {

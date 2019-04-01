@@ -1,5 +1,8 @@
 <% include ../partials/header %>
-<div class="row">
+<style>
+
+</style>
+<div class="row" style="margin-left: 20%">
         <div class="col-md-9" style= "padding-top: 35px;" >
           <div class="thumbnail" style="margin: auto; text-align: center;">
             <img class="img-responsive" src="<%= place.image %>" style="width: 500px; padding-top: 10px;">
@@ -85,10 +88,12 @@
                 <!--Edit button used for collapsing the edit comment form-->
                 <a class="btn btn-xs btn-warning" role="button" data-toggle="collapse" href="#collapseEdit<%= comment._id %>" aria-expanded="false" aria-controls="collapse<%= comment._id %>">
                   Edit</a>
+
                 <!--Delete comment button-->
                 <form id="delete-form" action="/places/<%= place._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST" style="display: inline;">
                   <button class="btn btn-xs btn-danger">Delete</button>
                 </form>
+                
                 <!--Edit comment form-->
                 <div class="collapse" id="collapseEdit<%= comment._id %>">
                   <div class="well" style="border-left: 5px solid #ffbb33; margin-top: 15px;">

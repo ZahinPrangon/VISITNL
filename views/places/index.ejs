@@ -1,42 +1,36 @@
 <% include ../partials/header %>
 
 <style>
-#add {
-    margin-top: 10px;
-    margin-right: 1250px;
-
+img:hover {
+    opacity: 0.8;
+}
+body {
+    background-image: url("places/battery.png");
+    min-height: 700px;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 </style>
 
 <!-- <h4><%= currentUser %></h4> -->
-    <% if (currentUser && currentUser.isAdmin) { %>
-        <h1>Welcome to administrative mode, <%= currentUser.username %></h1>
-    <% } %>
-
 <div class="container">
 <div class = "row" style="border: 1px thin black;"> 
     <p>
         <a id = "add" class = "btn btn-primary btn-large" href="/places/new"  style="margin-left:12px;">Add new places you have visited</a>
-    </p>   
-    <form action="/places" method="GET" class="form-inline">
-        <div class="form-group" style="padding: 10px;">
-            <input type="text" name="search" placeholder="Search Place..." class="form-control">
-            <input type="submit" value="Search" class="btn btn-default">
-        </div>
-    </form>
+    </p>
 </div>
-
     <div class="row text-center" style = "display:flex; flex-wrap:wrap;">
         <% places.forEach(function(places){ %>
         <div class="col-md-3 col-sm-6" stye="width: 280px; height: 300px; padding: 15px; padding-bottom: 12px">
             <div class="thumbnail" >
-                <img src="<%= places.image %>" class="img-responsive" class="rounded" style="width: 300px; height: 200px;">
+                <a href="/places/<%= places._id %>">
+                    <img src="<%= places.image %>" class="img-responsive" class="rounded" style="width: 300px; height: 200px;">
+                </a>
             <div class ="caption">
                     <h4><%= places.name %></h4>
             </div>
-            <p>
-                <a href = "/places/<%= places._id %>" class = "btn btn-primary">More info</a>
-            </p>
         </div>           
     </div>
         <% }); %>
@@ -44,4 +38,9 @@
 </div>
 </div>
 </div>
+
+
+   
+
+
 <% include ../partials/footer %>
