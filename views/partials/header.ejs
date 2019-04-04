@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html>
-
+<style>
+    html {
+        scroll-behavior: smooth;
+    }
+</style>
 <head>
     <title>Visit NL</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -37,15 +41,16 @@
 
         </div>
     </nav>
+
 <div style="margin-top: 25px; margin-left: 200px; width: 400px;">
     <% if(error && error.length > 0) { %>
-    <div class="alert alert-danger" role = "alert">
-        <%= error %>
-    </div>
-    <% } %>
-    <% if(success && success.length > 0) { %>
-    <div class="alert alert-success" role = "alert">
-        <%= success %>
-    </div>
-    <% } %>        
+        <div class="alert alert-danger" role = "alert">
+            <%= error %>
+        </div>
+        <% } %>
+        <% if(success && success.length > 0) { %>
+        <div class="alert alert-success" role = "alert">
+            <%= success %>
+        </div>
+        <% } %>     
 </div>
