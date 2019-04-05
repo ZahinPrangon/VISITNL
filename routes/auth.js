@@ -32,14 +32,15 @@ router.post("/register", function(req,res){
     console.log(newUser);
    if(req.body.adminCode === 'iamadmin123') {
        newUser.isAdmin = true;
-   }
+   }   
    User.register(newUser, req.body.password, function(err, user){
        if(err) {
            console.log(err);
-           return res.render("register")
+           return res.render("register");
        }
        passport.authenticate("local")(req, res, function(){
-            res.redirect("/places");
+        req.flash("success", "Successfully Signed Up! Nice to meet you " + req.body.username);
+        res.redirect("/places");
        });
    });
 });
@@ -52,14 +53,16 @@ router.post("/register", function(req,res){
 
 //show login form
 router.get("/login", function(req,res){
-    res.render("login");
+    res.render("login", {message: req.flash("error")});
 });
 
 //handling login logic
 router.post("/login", passport.authenticate("local",
     {
     successRedirect: "/places",
-    failureRedirect: "/login"
+    failureRedirect: "/login",
+    failureFlash: true,
+    successFlash: 'Welcome to VISITNL!'
     }), function (req, res) {
 
 });
@@ -67,24 +70,9 @@ router.post("/login", passport.authenticate("local",
 //logout route
 router.get("/logout", function(req,res){
     req.logout();
+    req.flash("success", "Logged you out!");
     res.redirect("/places");
 });
-
-// router.get("/users/:id", function(req,res){
-//     User.findById(req.params.id, function(err, foundUser){
-//         if(err){
-//             // req.flash("error", "Something went wrong");
-//             res.redirect("/");
-//         }
-//         Place.find().where("author.id").equals(foundUser._id).exec(function(err, places){
-//             if(err){
-//                 // req.flash("error", "Something went wrong");
-//                 res.redirect("/");
-//             }
-//             res.render("users/show", {user: foundUser, places: places});
-//         });
-//     });
-// });
 
 // RENDER THE FORGOT PAGE
 router.get("/forgot", function (req, res) {
@@ -94,6 +82,7 @@ router.get("/forgot", function (req, res) {
 
 //ROUTE TO POST REQUEST WHEN THE EMAIL IS SUBMIT TO RESET THE PASSWORD
 router.post('/forgot', function (req, res, next) {
+  console.log("reached here");
     async.waterfall([
         function (done) {
             crypto.randomBytes(20, function (err, buf) {
@@ -117,14 +106,16 @@ router.post('/forgot', function (req, res, next) {
         function(token, user, done) {
             var smtpTransport = nodemailer.createTransport({
                 service: 'Gmail',
+               //BOT EMAIL AND PASS
                 auth: {
-                    user: 'zahinhasan43@gmail.com',
-                    pass: process.env.GMAILPW
+                    user: 'visitnl120@gmail.com',
+                    pass: 'VISITNL456'
                 }
             });
+            console.log('reached here as well');
             var mailOptions = {
                 to: user.email,
-                from: 'zahinhasan43@gmail.com',
+                from: 'visitnl120@gmail.com',
                 subject: 'VISITNL password RESET',
                 text: 'You are receiving this because you(or someone else) have requested the reset of the password. \n\n' +
                 'Please click on the following link, or paste this into your browser to complete the process of reseting your password: \n\n' +
@@ -143,13 +134,13 @@ router.post('/forgot', function (req, res, next) {
 });
 
 router.get('/reset/:token', function(req, res) {
-    User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
-      if (!user) {
-        return res.redirect('/forgot');
-      }
-      res.render('reset', {token: req.params.token});
-    });
+  User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+    if (!user) {
+      return res.redirect('/forgot');
+    }
+    res.render('reset', {token: req.params.token});
   });
+});
 
 
 router.post('/reset/:token', function(req, res) {
@@ -176,16 +167,19 @@ router.post('/reset/:token', function(req, res) {
         });
       },
       function(user, done) {
+        console.log('mail2 sent');
         var smtpTransport = nodemailer.createTransport({
           service: 'Gmail', 
+          //BOT EMAIL AND PASS
           auth: {
-            user: 'zahinhasan43@gmail.com',
-            pass: process.env.GMAILPW
+            user: 'visitnl120@gmail.com',
+            pass: 'VISITNL456'
           }
         });
+        console.log('mail2 sent');
         var mailOptions = {
           to: user.email,
-          from: 'zahinhasan43@gmail.com',
+          from: 'visitnl120@gmail.com',
           subject: 'Your password has been changed',
           text: 'Hello,\n\n' +
             'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
@@ -203,25 +197,25 @@ router.post('/reset/:token', function(req, res) {
 router.get("/users/:id", function(req, res) {
     User.findById(req.params.id, function(err, foundUser) {
       if(err) {
-        res.redirect("/");
+        return res.redirect("/");
       }
       Place.find().where('author.id').equals(foundUser._id).exec(function(err, places) {
         if(err) {
-        //   req.flash("error", "Something went wrong.");
-          res.redirect("/");
+          return res.redirect("/");
         }
         res.render("users/show", {user: foundUser, places: places});
-      })
+      });
     });
   });
   
 
-//middleware to check if user is logged in
-function isLoggedIn(req,res,next) {
-    if(req.isAuthenticated()){
-        return next();
-    }
-    res.redirect("/login");
-}
+// //middleware to check if user is logged in
+// function isLoggedIn(req,res,next) {
+//     if(req.isAuthenticated()){
+//         return next();
+//     }
+//     req.flash("error", "You need to be logged in to do that");
+//     res.redirect("/login");
+// }
 
 module.exports = router;
