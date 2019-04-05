@@ -7,7 +7,7 @@
           <div class="thumbnail" style="margin: auto; text-align: center;">
             <img class="img-responsive" src="<%= place.image %>" style="width: 500px; padding-top: 10px;">
             <div class="caption-full">
-              <h4><a><%=place.name%></a></h4>
+              <h4><%=place.name%></h4>
               <p><%= place.description %></p>
               <p>
                 <em>Submitted by: <a href="/users/<%= place.author.id %>"><%= place.author.username %></a>, <%= moment(place.createdAt).fromNow() %></em>              </p>
@@ -59,7 +59,6 @@
       
             <hr>
       
-            <!--Check if there are comments, if there are none say no comments.-->
               <% if (place.comments.length === 0) { %>
             <em style="color: grey;">No comments yet.</em>
               <% } %>
@@ -117,10 +116,9 @@
             </div>
               <% }) %>
           </div>
-          <!--COMMENT SECTION END-->
+
       
         </div>
       </div>
  
-      <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkG51lwJtDvYFKTBdRZlhzYg1D4QFsXPU&callback=initMap"></script>
       <% include ../partials/footer %>
