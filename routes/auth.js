@@ -108,8 +108,8 @@ router.post('/forgot', function (req, res, next) {
                 service: 'Gmail',
                //BOT EMAIL AND PASS
                 auth: {
-                    user: 'visitnl120@gmail.com',
-                    pass: 'VISITNL456'
+                    user: '****@gmail.com',
+                    pass: '*******'
                 }
             });
             console.log('reached here as well');
